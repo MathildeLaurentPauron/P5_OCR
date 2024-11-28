@@ -1,6 +1,7 @@
 from flask import Flask
+from app.utils import *
 
-app = Flask(__name__)
+app = Flask(_name_)
 
 
 @app.route('/')
@@ -9,9 +10,9 @@ def root():
 
 
 @app.route('/predict_tags/<string:question>')
-def predict_tags(quesiton):
-    return result
+def api_predict_tags(question):
+    return predict_tags(question)
 
 
-if __name__ == '__main__':
+if _name_ == '_main_':
     app.run(host="0.0.0.0")
