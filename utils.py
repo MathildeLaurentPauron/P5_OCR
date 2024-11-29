@@ -5,7 +5,7 @@ import mlflow.sklearn
 import pickle
 
 # Téléchargement et chargement du binariseur depuis MLflow
-artifact_dir = mlflow.artifacts.download_artifacts(artifact_uri="runs:/<run_id>/mlb.pkl")
+artifact_dir = mlflow.artifacts.download_artifacts(artifact_uri="runs:/722883fac0e649de8e7c75fafcfdeb43/mlb.pkl")
 local_binarizer_path = os.path.join(artifact_dir, "mlb.pkl")
 with open(local_binarizer_path, "rb") as f:
     mlb = pickle.load(f)
@@ -18,7 +18,7 @@ def get_use_embedding(question):
     return use_model([question]).numpy().flatten()
 
 # Charger le modèle
-model = mlflow.sklearn.load_model("runs:/<run_id>/<embedding_type>_multi_label_model")
+model = mlflow.sklearn.load_model("runs:/722883fac0e649de8e7c75fafcfdeb43/<embedding_type>_multi_label_model")
 
 def predict_tags(question):
     embedding = get_use_embedding(question)
