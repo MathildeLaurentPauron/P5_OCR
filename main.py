@@ -1,7 +1,7 @@
 from flask import Flask
 from utils import *
 
-app = Flask(_name_)
+app = Flask(__name__)
 
 
 @app.route('/')
@@ -14,5 +14,5 @@ def api_predict_tags(question):
     return predict_tags(question)
 
 
-if _name_ == '_main_':
-    app.run(host="0.0.0.0")
+if __name__ == '_main_':
+    app.run(port=6000)
