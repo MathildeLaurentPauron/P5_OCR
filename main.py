@@ -1,5 +1,5 @@
 from flask import Flask
-from utils import *
+from utils import predict_tags
 
 app = Flask(__name__)
 
@@ -14,5 +14,5 @@ def api_predict_tags(question):
     return predict_tags(question)
 
 
-if __name__ == '_main_':
-    app.run(port=6000)
+if __name__ == '__main__':
+    app.run(host="0.0.0.0", port=8999)   

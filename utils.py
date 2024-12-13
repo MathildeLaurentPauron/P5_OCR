@@ -6,24 +6,30 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.feature_extraction.text import CountVectorizer
 import os 
 import pickle
+import nltk
+import re
+from nltk.corpus import stopwords
+nltk.download('stopwords')
+nltk.download('punkt_tab')
+
+# Fonction de nettoyage de texte
+def clean_text(text):
+    text = re.sub(r'[^\w\s#+]', '', text)  # Enlever la ponctuation
+    text = text.lower()  # Convertir en minuscules
+    text = re.sub(r'<[^>]+>', '', text)  # Enlever les balises HTML
+    tokens = nltk.word_tokenize(text)  # Tokenisation
+    tokens = [word for word in tokens if word not in stopwords.words('english')]  # Suppression des stopwords
+    return ' '.join(tokens)
 
 # Téléchargement et chargement du binariseur depuis MLflow
-#artifact_dir = mlflow.artifacts.download_artifacts(artifact_uri="runs:/722883fac0e649de8e7c75fafcfdeb43/mlb.pkl")
 binarizer_path = "mlb.pkl"
 with open(binarizer_path, "rb") as f:
     mlb = pickle.load(f)
 
-# # Charger le modèle USE depuis TensorFlow Hub
-# use_model = hub.load("https://tfhub.dev/google/universal-sentence-encoder/4")
-
-# # Fonction pour obtenir l'embedding d'un texte avec USE
-# def get_use_embedding(question):
-#     return use_model([question]).numpy().flatten()
-
 # Feature extraction with Bag-of-Words
 def get_bow_embedding(question):
-    vectorizer = CountVectorizer(max_features=5000)
-    return [row for row in vectorizer.fit_transform([question]).toarray()]
+    vectorizer = pickle.load(open('vectorizer.pkl', 'rb'))
+    return vectorizer.transform([clean_text(question)]).toarray()
 
 # Charger le modèle
 model_path = "model_BoW.pkl"
@@ -32,7 +38,7 @@ with open(model_path, "rb") as f:
 
 def predict_tags(question):
     embedding = get_bow_embedding(question)
-    keywords = model.predict([embedding])
+    keywords = model.predict(embedding)
     predicted_tags = mlb.inverse_transform(keywords)
     return predicted_tags
     
