@@ -32,7 +32,7 @@ jobs:
       # Étape 4 : Exécuter les tests unitaires
       - name: Run unit tests
         run: |
-          test_predict_tags.py/
+          test_predict_tags.py
 
       # # Étape 5 (optionnelle) : Déployer l'API (après tests réussis)
       # - name: Deploy API
