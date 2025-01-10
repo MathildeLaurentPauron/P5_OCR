@@ -32,9 +32,3 @@ jobs:
       # Étape 4 : Exécuter les tests unitaires
       - name: Run unit tests
         run: python3 -u -m unittest test_predict_tags.py
-
-      # # Étape 5 (optionnelle) : Déployer l'API (après tests réussis)
-      # - name: Deploy API
-      #   if: success()
-      #   run: |
-      #     echo "Deploying API..."  # Commande ou script de déploiement réel
