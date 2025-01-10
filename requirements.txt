@@ -1,6 +1,5 @@
 flask
 scikit-learn
-os
 pickle
 nltk
 re
