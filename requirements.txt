@@ -1,6 +1,6 @@
 flask
 scikit-learn
-pickle
-nltk
-re
-unittest
+# pickle
+# nltk
+# re
+# unittest
