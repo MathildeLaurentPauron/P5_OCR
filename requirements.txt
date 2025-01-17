@@ -1,6 +1,8 @@
 flask
 scikit-learn
 nltk
+tensorflow
+tensorflow_hub
 # pickle
 # re
 # unittest
