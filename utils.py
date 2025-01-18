@@ -3,7 +3,6 @@ import tensorflow
 from sklearn.preprocessing import MultiLabelBinarizer
 from sklearn.multioutput import MultiOutputClassifier
 from sklearn.linear_model import LogisticRegression
-from sklearn.feature_extraction.text import CountVectorizer 
 import pickle
 import nltk 
 import re
