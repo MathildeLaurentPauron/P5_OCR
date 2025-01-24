@@ -1,5 +1,5 @@
 #!/bin/bash
 
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 
-python main.py
+python3 main.py
