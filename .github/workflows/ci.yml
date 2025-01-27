@@ -82,8 +82,11 @@ jobs:
           # Se connecter au serveur et exécuter les commandes
           ssh -o StrictHostKeyChecking=no -i key.pem $EC2_USER@$EC2_HOST << 'EOF'
           cd P5_OCR
-          chmod +x install_app.sh
-          ./install_app.sh  
+          pip3 install -r requirements.txt
+          exit
+          EOF
+          ssh -o StrictHostKeyChecking=no -i key.pem $EC2_USER@$EC2_HOST << 'EOF'
+          python3 main.py 
           EOF
 
           # Redémarrage du service (adapter à votre config, ex : systemd, pm2, etc.)
