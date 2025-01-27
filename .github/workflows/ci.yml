@@ -89,7 +89,8 @@ jobs:
           EOF
           ssh -o StrictHostKeyChecking=no -i key.pem $EC2_USER@$EC2_HOST << 'EOF'
           cd P5_OCR
-          python3 main.py 
+          python3 main.py
+          python3 interface.py 
           EOF
 
           # Redémarrage du service (adapter à votre config, ex : systemd, pm2, etc.)
