@@ -3,6 +3,7 @@ scikit-learn==1.5.2
 nltk
 tensorflow-cpu
 tensorflow_hub
+streamlit
 # pickle
 # re
 # unittest
