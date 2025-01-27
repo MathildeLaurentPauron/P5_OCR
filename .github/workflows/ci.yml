@@ -68,4 +68,3 @@ jobs:
 
           # Redémarrage du service (adapter à votre config, ex : systemd, pm2, etc.)
           #sudo systemctl restart myapp.service
-          #EOF
