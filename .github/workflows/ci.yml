@@ -54,6 +54,8 @@ jobs:
             exit 1
           fi
           curl -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" $ACTIONS_ID_TOKEN_REQUEST_URL
+        env: 
+          ACTIONS_ID_TOKEN_REQUEST_URL: ${{ secrets.ACTIONS_ID_TOKEN_REQUEST_URL }}
 
       #configurer les identifiants AWS
       - name: Configure AWS credentials
