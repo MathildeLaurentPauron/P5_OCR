@@ -83,8 +83,8 @@ jobs:
           ssh -o StrictHostKeyChecking=no -i key.pem $EC2_USER@$EC2_HOST << 'EOF'
           cd P5_OCR
           sudo apt-get install python3-pip
-          pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install --upgrade pip --break-system-packages
+          pip install -r requirements.txt --break-system-packages
           exit
           EOF
           ssh -o StrictHostKeyChecking=no -i key.pem $EC2_USER@$EC2_HOST << 'EOF'
