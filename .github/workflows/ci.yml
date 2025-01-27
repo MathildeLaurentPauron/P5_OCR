@@ -42,7 +42,7 @@ jobs:
         env:
           EC2_PEM_KEY: ${{ secrets.EC2_PEM_KEY }}
 
-      #debug OIDC
+      #debug OIDC #create github token in secrets
       - name: Debug OIDC Token
         run: |
           if [ -z "$ACTIONS_ID_TOKEN_REQUEST_URL" ]; then
