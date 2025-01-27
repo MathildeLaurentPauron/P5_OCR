@@ -64,6 +64,8 @@ jobs:
         with:
           role-to-assume: arn:aws:iam::182399725717:role/ocr_user
           aws-region: "eu-west-3"
+          aws-access-key-id: ${{ secrets.ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.SECRET_KEY }}
 
       - name: Debug AWS credentials
         run: |
