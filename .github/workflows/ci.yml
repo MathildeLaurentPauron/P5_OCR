@@ -80,7 +80,7 @@ jobs:
           ssh -o StrictHostKeyChecking=no -i key.pem $EC2_USER@$EC2_HOST << 'EOF'
           cd /home/$EC2_USER/P5_OCR
           chmod +x install_app.sh
-          ./install_app.sh  # Lancer le script
+          ./install_app.sh  
           EOF
 
           # Redémarrage du service (adapter à votre config, ex : systemd, pm2, etc.)
