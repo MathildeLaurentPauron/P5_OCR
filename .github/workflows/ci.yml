@@ -79,9 +79,7 @@ jobs:
           EC2_PEM_KEY: ${{ secrets.EC2_PEM_KEY }}  
         run: |
 
-          # Copier les fichiers sur le serveur EC2
-          scp -o StrictHostKeyChecking=no -i $EC2_PEM_KEY -r . $EC2_USER@$EC2_HOST:/home/$EC2_USER/P5_OCR
-          
+        
           # Se connecter au serveur et exécuter les commandes
           ssh -o StrictHostKeyChecking=no -i $EC2_PEM_KEY $EC2_USER@$EC2_HOST << 'EOF'
           cd /home/$EC2_USER/P5_OCR
