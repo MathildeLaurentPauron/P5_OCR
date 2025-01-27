@@ -49,6 +49,10 @@ jobs:
           role-to-assume: arn:aws:iam::182399725717:role/ocr_user
           aws-region: "eu-west-3"
 
+      - name: Debug AWS credentials
+        run: |
+          aws sts get-caller-identity
+
       #déployer sur le serveur EC2
       - name: Deploy to EC2
         env:
