@@ -15,4 +15,4 @@ def api_predict_tags(question):
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=8999)   
+    app.run(host="0.0.0.0", port=8999)

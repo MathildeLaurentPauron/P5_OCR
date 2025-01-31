@@ -33,64 +33,64 @@ jobs:
       - name: Run unit tests
         run: python3 -u -m unittest test_predict_tags.py
 
-      # Étape 5 : Déployer sur le serveur EC2
-      #configurer la clé SSH
-      - name: Configure SSH Key
-        run: |
-          echo "$EC2_PEM_KEY" > key.pem
-          chmod 600 key.pem
-        env:
-          EC2_PEM_KEY: ${{ secrets.EC2_PEM_KEY }}
+      # # Étape 5 : Déployer sur le serveur EC2
+      # #configurer la clé SSH
+      # - name: Configure SSH Key
+      #   run: |
+      #     echo "$EC2_PEM_KEY" > key.pem
+      #     chmod 600 key.pem
+      #   env:
+      #     EC2_PEM_KEY: ${{ secrets.EC2_PEM_KEY }}
 
-      #debug OIDC #create github token in secrets
-      - name: Debug OIDC Token
-        run: |
-          if [ -z "$ACTIONS_ID_TOKEN_REQUEST_URL" ]; then
-            echo "ACTIONS_ID_TOKEN_REQUEST_URL is empty!"
-            exit 1
-          fi
-          if [ -z "$ACTIONS_ID_TOKEN_REQUEST_TOKEN" ]; then
-            echo "ACTIONS_ID_TOKEN_REQUEST_TOKEN is empty!"
-            exit 1
-          fi
-          curl -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_URL" https://github.com/${{ github.repository }}
-        env: 
-          ACTIONS_ID_TOKEN_REQUEST_URL: ${{ secrets.ACTIONS_ID_TOKEN_REQUEST_URL }}
-          ACTIONS_ID_TOKEN_REQUEST_TOKEN: ${{ github.repository }}
+      # #debug OIDC #create github token in secrets
+      # - name: Debug OIDC Token
+      #   run: |
+      #     if [ -z "$ACTIONS_ID_TOKEN_REQUEST_URL" ]; then
+      #       echo "ACTIONS_ID_TOKEN_REQUEST_URL is empty!"
+      #       exit 1
+      #     fi
+      #     if [ -z "$ACTIONS_ID_TOKEN_REQUEST_TOKEN" ]; then
+      #       echo "ACTIONS_ID_TOKEN_REQUEST_TOKEN is empty!"
+      #       exit 1
+      #     fi
+      #     curl -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_URL" https://github.com/${{ github.repository }}
+      #   env: 
+      #     ACTIONS_ID_TOKEN_REQUEST_URL: ${{ secrets.ACTIONS_ID_TOKEN_REQUEST_URL }}
+      #     ACTIONS_ID_TOKEN_REQUEST_TOKEN: ${{ github.repository }}
 
-      #configurer les identifiants AWS
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          # role-to-assume: arn:aws:iam::182399725717:role/ocr_user
-          aws-region: "eu-west-3"
-          aws-access-key-id: ${{ secrets.ACCESS_KEY }}
-          aws-secret-access-key: ${{ secrets.SECRET_KEY }}
+      # #configurer les identifiants AWS
+      # - name: Configure AWS credentials
+      #   uses: aws-actions/configure-aws-credentials@v2
+      #   with:
+      #     # role-to-assume: arn:aws:iam::182399725717:role/ocr_user
+      #     aws-region: "eu-west-3"
+      #     aws-access-key-id: ${{ secrets.ACCESS_KEY }}
+      #     aws-secret-access-key: ${{ secrets.SECRET_KEY }}
 
-      - name: Debug AWS credentials
-        run: |
-          aws sts get-caller-identity
+      # - name: Debug AWS credentials
+      #   run: |
+      #     aws sts get-caller-identity
 
-      #déployer sur le serveur EC2
-      - name: Deploy to EC2
-        env:
-          EC2_USER: "ubuntu"  
-          EC2_HOST: "ec2-13-39-23-8.eu-west-3.compute.amazonaws.com"
-        run: |
+      # #déployer sur le serveur EC2
+      # - name: Deploy to EC2
+      #   env:
+      #     EC2_USER: "ubuntu"  
+      #     EC2_HOST: "ec2-13-39-23-8.eu-west-3.compute.amazonaws.com"
+      #   run: |
 
         
-          # Se connecter au serveur et exécuter les commandes
-          ssh -o StrictHostKeyChecking=no -i key.pem $EC2_USER@$EC2_HOST << 'EOF'
-          cd P5_OCR
-          sudo apt-get install python3-pip
-          pip install --upgrade pip --break-system-packages
-          pip install -r requirements.txt --break-system-packages
-          exit
-          EOF
-          ssh -o StrictHostKeyChecking=no -i key.pem $EC2_USER@$EC2_HOST << 'EOF'
-          cd P5_OCR
-          python3 main.py
-          EOF
+      #     # Se connecter au serveur et exécuter les commandes
+      #     ssh -o StrictHostKeyChecking=no -i key.pem $EC2_USER@$EC2_HOST << 'EOF'
+      #     cd P5_OCR
+      #     sudo apt-get install python3-pip
+      #     pip install --upgrade pip --break-system-packages
+      #     pip install -r requirements.txt --break-system-packages
+      #     exit
+      #     EOF
+      #     ssh -o StrictHostKeyChecking=no -i key.pem $EC2_USER@$EC2_HOST << 'EOF'
+      #     cd P5_OCR
+      #     python3 main.py
+      #     EOF
 
-          # Redémarrage du service (adapter à votre config, ex : systemd, pm2, etc.)
-          #sudo systemctl restart myapp.service
+      #     # Redémarrage du service (adapter à votre config, ex : systemd, pm2, etc.)
+      #     #sudo systemctl restart myapp.service

@@ -12,7 +12,7 @@ st.header("Input Question")
 question = st.text_input("Enter your question:", "")
 
 # API URL
-api_url = "http://13.39.23.8:8999/predict_tags"
+api_url = "http://127.0.0.1:8999/predict_tags"
 # Predict Button
 if st.button("Predict"):
     try:
